@@ -4,6 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--puzzle', action='store_true', help='Use the live puzzle data')
+parser.add_argument('--debug', action='store_true', help='Use the live puzzle data')
 args = parser.parse_args()
 
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -11,6 +12,9 @@ file_name = '/sample.txt'
 if args.puzzle:
     file_name = '/puzzle.txt'
 input_path = file_path + file_name
+
+def debug(*args):
+    print(*args)
 
 print('Opening {}'.format(file_name))
 
