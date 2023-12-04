@@ -1,5 +1,7 @@
-import pprint, sys
+import pprint, sys, config
 sys.path.append('../python_utils')
+
+debug = config.debug
 
 from Board2D import Board2D
 from dijkstra import dijkstra
@@ -14,28 +16,28 @@ pp = pprint.PrettyPrinter(indent=4)
 #
 #############
 
-def parseCard(card, debug):
+def parseCard(card):
     cardNum = card.split(': ')[0].split(' ')[1]
     winners, cards = card.split(': ')[1].split(' | ')
     winners = set([ int(v) for v in winners.strip().split(' ') if len(v) > 0])
     cards = set([ int(v) for v in cards.strip().split(' ') if len(v) > 0 ])
     return winners, cards
 
-def part1(input, debug):
+def part1(input):
     total = 0
     for line in input:
-        winners, cards = parseCard(line, debug)
+        winners, cards = parseCard(line)
         debug(winners & cards, len(winners & cards))
         if len(winners & cards) > 0:
             total += 2**(len(winners & cards) - 1)
     return total
 
-def part2(input, debug):
+def part2(input):
     copies = []
     for x in range(len(input)):
         copies.append(1)
     for i, card in enumerate(input):
-        winners, cards = parseCard(card, debug)
+        winners, cards = parseCard(card)
         for x in range(len(winners & cards)):
             copies[i+x+1] += copies[i]
     debug(copies)
